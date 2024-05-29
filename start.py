@@ -1,27 +1,29 @@
 # Source: https://www.geeksforgeeks.org/python-script-to-monitor-website-changes/
 # Website to monitor: https://www.idays.it/tickets
 
-# Importing libraries 
-import time 
-import hashlib 
-from urllib.request import urlopen, Request 
+import hashlib
 
-# setting the URL you want to monitor 
-url = Request('www.geeksforgeeks.org', 
-			headers={'User-Agent': 'Mozilla/5.0'}) 
+# Importing libraries 
+import time
+import urllib.request
+
+# setting the URL you want to monitor
+url = "https://www.geeksforgeeks.org"
 
 # to perform a GET request and load the 
 # content of the website and store it in a var 
-response = urlopen(url).read() 
+page = urllib.request.urlopen(url)
+response = page.read()
 
 # to create the initial hash 
 currentHash = hashlib.sha224(response).hexdigest() 
 print("running") 
 time.sleep(10) 
 while True: 
-	try: 
+	try:
 		# perform the get request and store it in a var 
-		response = urlopen(url).read() 
+		page = urllib.request.urlopen(url)
+		response = page.read() 
 
 		# create a hash 
 		currentHash = hashlib.sha224(response).hexdigest() 
@@ -29,8 +31,9 @@ while True:
 		# wait for 30 seconds 
 		time.sleep(30) 
 
-		# perform the get request 
-		response = urlopen(url).read() 
+		# perform the get request
+		page = urllib.request.urlopen(url)
+		response = page.read() 
 
 		# create a new hash 
 		newHash = hashlib.sha224(response).hexdigest() 
@@ -45,7 +48,8 @@ while True:
 			print("something changed") 
 
 			# again read the website 
-			response = urlopen(url).read() 
+			page = urllib.request.urlopen(url)
+			response = page.read()
 
 			# create a hash 
 			currentHash = hashlib.sha224(response).hexdigest() 
